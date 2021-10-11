@@ -29,5 +29,11 @@ namespace BookLoggerConsole
             new { BookID = oldBookID, Note = newNote });
         }
 
+        public void EditNote(int oldNoteID, string newNote)
+        {
+            _connection.Execute("UPDATE notes SET Note = @Note WHERE NoteID = @NoteID;",
+            new { NoteID = oldNoteID, Note = newNote });
+        }
+
     }
 }

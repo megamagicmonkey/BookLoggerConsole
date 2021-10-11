@@ -42,14 +42,14 @@ namespace BookLoggerConsole
         //This method edits the author listing of a book
         public void EditAuthor(int oldBookID, string newAuthor)
         {
-            _connection.Execute("INSERT INTO books (BookName , Author) VALUES (@BookName , @Author);", // TODO: Convert to update
-            new { Author = newAuthor });
+            _connection.Execute("UPDATE books SET Author = @Author WHERE BookID = @BookID;",
+            new { BookID = oldBookID, Author = newAuthor });
         }
 
         public void EditBookName(int oldBookID, string newBookName)
         {
-            _connection.Execute("INSERT INTO books (BookName , Author) VALUES (@BookName , @Author);", // TODO: Convert to update
-            new { BookName = newBookName });
+            _connection.Execute("UPDATE books SET BookName = @BookName WHERE BookID = @BookID;);",
+            new { BookID = oldBookID, BookName = newBookName });
         }
     }
 }
