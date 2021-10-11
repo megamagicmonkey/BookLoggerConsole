@@ -10,7 +10,7 @@ namespace BookLoggerConsole
         public int BookID { get; set; }
         public TimeSpan SessionStart { get; set; }
         public TimeSpan SessionEnd { get; set; }
-        public int PagesRead { get; set; }
+        public int? PagesRead { get; set; }
         public DateTime Date { get; set; }
     }
 }

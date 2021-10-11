@@ -20,16 +20,36 @@ namespace BookLoggerConsole
             return _connection.Query<Books>("SELECT * FROM books;");
         }
 
+
+        //arguments use the term old if it is referencing an old item and new if it is creating or editing new information
+
+
+
+        //Adds a new book to the book list
         public void AddBook(string newBookName)
         {
             _connection.Execute("INSERT INTO books (BookName) VALUES (@bookName);",
             new { bookName = newBookName });
         }
+
+        //An overload that also allows the author to be submitted with the book name
         public void AddBook(string newBookName, string newAuthor)
         {
-            _connection.Execute("INSERT INTO books (BookName , Author) VALUES (@bookName , @author);", //This line is almost certainly wrong
-            new { bookName = newBookName });
-            //new { author = newAuthor }
+            _connection.Execute("INSERT INTO books (BookName , Author) VALUES (@BookName , @Author);",
+            new { BookName = newBookName, Author = newAuthor });
+        }
+
+        //This method edits the author listing of a book
+        public void EditAuthor(int oldBookID, string newAuthor)
+        {
+            _connection.Execute("INSERT INTO books (BookName , Author) VALUES (@BookName , @Author);", // TODO: Convert to update
+            new { Author = newAuthor });
+        }
+
+        public void EditBookName(int oldBookID, string newBookName)
+        {
+            _connection.Execute("INSERT INTO books (BookName , Author) VALUES (@BookName , @Author);", // TODO: Convert to update
+            new { BookName = newBookName });
         }
     }
 }

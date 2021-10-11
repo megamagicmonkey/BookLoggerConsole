@@ -19,5 +19,36 @@ namespace BookLoggerConsole
         {
             return _connection.Query<Log>("SELECT * FROM log;");
         }
+
+        //arguments use the term old if it is referencing an old item and new if it is creating or editing new information
+
+
+        //Begins an entry when it is selected. SessionStart's time is set by the computer's clock when the method is called
+        public void StartTimeLog(int oldBookID, TimeSpan newSessionStart, DateTime newDate ) 
+        {
+            _connection.Execute("INSERT INTO log (BookID, SessionStart, Date) VALUES (@BookID, @SessionStart, @Date);",
+            new { BookID = oldBookID, SessionStart = newSessionStart, Date = newDate });
+        }
+
+        //When the timed session ends, it applies the computer's clock to SessionEnd and ties it to the LogID of the session created with StartTimeLog()
+        public void EndTimeLog(int oldLogID, TimeSpan newSessionEnd)
+        {
+            _connection.Execute("INSERT INTO books (BookName) VALUES (@bookName);", // TODO: convert to an update
+            new { LogID = oldLogID, SessionEnd = newSessionEnd });
+        }
+
+        //Creates a log of pages read independent of a timed session
+        public void newPageLog(int oldBookID, int newPagesRead, DateTime newDate)
+        {
+            _connection.Execute("INSERT INTO log (BookID, PagesRead, Date) VALUES (@BookID, PagesRead, Date);",
+            new { BookID = oldBookID, PagesRead = newPagesRead, Date = newDate });
+        }
+
+        //To keep the session end time as accurate as possible, and pages read during that session are applied through here instead of EndTimeLog()
+        public void appendPageLog(int oldLogID, int newPagesRead)
+        {
+            _connection.Execute("INSERT INTO books (BookName) VALUES (@bookName);", // TODO: convert to an update
+            new { LogID = oldLogID, PagesRead = newPagesRead });
+        }
     }
 }
