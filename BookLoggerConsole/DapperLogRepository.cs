@@ -52,5 +52,12 @@ namespace BookLoggerConsole
             _connection.Execute("UPDATE log SET PagesRead = @PagesRead WHERE LogID = @LogID;", 
             new { LogID = oldLogID, PagesRead = newPagesRead });
         }
+
+        //Delete method
+        public void DeleteEntry(int oldLogID)
+        {
+            _connection.Execute("DELETE FROM log WHERE LogID = @LogID;",
+            new { LogID = oldLogID });
+        }
     }
 }

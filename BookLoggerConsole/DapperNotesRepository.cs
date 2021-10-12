@@ -35,5 +35,12 @@ namespace BookLoggerConsole
             new { NoteID = oldNoteID, Note = newNote });
         }
 
+        //Delete method
+        public void DeleteEntry(int oldNoteID)
+        {
+            _connection.Execute("DELETE FROM notes WHERE NoteID = @NoteID;",
+            new { BookID = oldNoteID });
+        }
+
     }
 }

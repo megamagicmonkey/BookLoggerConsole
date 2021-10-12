@@ -86,5 +86,12 @@ namespace BookLoggerConsole
             _connection.Execute("UPDATE home_library SET XXX = @XXX WHERE ID = @ID;",
             new { ID = oldID });
         }
+
+        //Delete method
+        public void DeleteEntry(int oldID)
+        {
+            _connection.Execute("DELETE FROM home_library WHERE ID = @ID;",
+            new { ID = oldID });
+        }
     }
 }

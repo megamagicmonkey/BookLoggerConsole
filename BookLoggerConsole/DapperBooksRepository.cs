@@ -46,10 +46,18 @@ namespace BookLoggerConsole
             new { BookID = oldBookID, Author = newAuthor });
         }
 
+        //This method edits the name of the book
         public void EditBookName(int oldBookID, string newBookName)
         {
-            _connection.Execute("UPDATE books SET BookName = @BookName WHERE BookID = @BookID;);",
+            _connection.Execute("UPDATE books SET BookName = @BookName WHERE BookID = @BookID;",
             new { BookID = oldBookID, BookName = newBookName });
+        }
+
+        //Delete method
+        public void DeleteEntry(int oldBookID)
+        {
+            _connection.Execute("DELETE FROM books WHERE BookID = @BookID;",
+            new {BookID = oldBookID});
         }
     }
 }
