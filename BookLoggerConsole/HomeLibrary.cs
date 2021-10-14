@@ -15,7 +15,7 @@ namespace BookLoggerConsole
         public DateTime DatePurchased { get; set; }
         public DateTime DatePrinted { get; set; }
         public int? PageCount { get; set; }
-        public bool? Wishlist { get; set; }
+        public bool Wishlist { get; set; }
 
     }
 }

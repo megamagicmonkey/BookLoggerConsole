@@ -15,6 +15,8 @@ namespace BookLoggerConsole
             _connection = connection;
         }
 
+
+        //Select All
         public IEnumerable<Notes> GetAllNotes()
         {
             return _connection.Query<Notes>("SELECT * FROM notes;");

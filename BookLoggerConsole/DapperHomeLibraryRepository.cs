@@ -15,10 +15,48 @@ namespace BookLoggerConsole
             _connection = connection;
         }
 
+        //Select All
         public IEnumerable<HomeLibrary> GetLibrary()
         {
             return _connection.Query<HomeLibrary>("SELECT * FROM home_library;");
         }
+
+        //Search hardbacks
+        public IEnumerable<HomeLibrary> SearchHardback()
+        {
+            return _connection.Query<HomeLibrary>("SELECT * FROM home_library WHERE Hardback = true;");
+        }
+
+        //search softbacks
+        public IEnumerable<HomeLibrary> SearchSoftback()
+        {
+            return _connection.Query<HomeLibrary>("SELECT * FROM home_library WHERE Hardback = false;");
+        }
+
+        public IEnumerable<HomeLibrary> SearchEdition(string newSearch)
+        {
+            return _connection.Query<HomeLibrary>("SELECT * FROM home_library WHERE Edition LIKE '%@search%';",
+                new { search = newSearch });
+        }
+
+        public IEnumerable<HomeLibrary> SearchCategoryID(int newSearch)
+        {
+            return _connection.Query<HomeLibrary>("SELECT * FROM home_library WHERE CategoryID = @search;",
+                new { search = newSearch });
+        }
+
+        public IEnumerable<HomeLibrary> SearchGenre(string newSearch)
+        {
+            return _connection.Query<HomeLibrary>("SELECT * FROM home_library WHERE Genre LIKE '%@search%';",
+                new { search = newSearch });
+        }
+
+        public IEnumerable<HomeLibrary> SearchWishlist()
+        {
+            return _connection.Query<HomeLibrary>("SELECT * FROM home_library WHERE Wishlist = true;");
+        }
+
+        //no searches for datetimes or page count so far. Debating their efficacy
 
         //arguments use the term old if it is referencing an old item and new if it is creating or editing new information
 

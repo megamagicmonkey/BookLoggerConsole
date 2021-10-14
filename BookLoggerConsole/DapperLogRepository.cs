@@ -15,10 +15,14 @@ namespace BookLoggerConsole
             _connection = connection;
         }
 
+
+        //Select All
         public IEnumerable<Log> GetAllLogs()
         {
             return _connection.Query<Log>("SELECT * FROM log;");
         }
+
+
 
         //arguments use the term old if it is referencing an old item and new if it is creating or editing new information
 

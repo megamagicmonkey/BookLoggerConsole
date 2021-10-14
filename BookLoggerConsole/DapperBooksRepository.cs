@@ -15,9 +15,24 @@ namespace BookLoggerConsole
             _connection = connection;
         }
 
+        //Select All
         public IEnumerable<Books> GetAllBooks()
         {
             return _connection.Query<Books>("SELECT * FROM books;");
+        }
+
+        //Search Authors
+        public IEnumerable<Books> SearchAuthor(string newSearch)
+        {
+            return _connection.Query<Books>("SELECT * FROM books WHERE Author LIKE '%@search%';",
+                new { search = newSearch });
+        }
+
+        //Search BookNames
+        public IEnumerable<Books> SearchBook(string newSearch)
+        {
+            return _connection.Query<Books>("SELECT * FROM books WHERE BookName LIKE '%@search%';",
+                new { search = newSearch });
         }
 
 
