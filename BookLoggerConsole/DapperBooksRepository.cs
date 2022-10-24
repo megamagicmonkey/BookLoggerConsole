@@ -24,17 +24,30 @@ namespace BookLoggerConsole
         //Search Authors
         public IEnumerable<Books> SearchAuthor(string newSearch)
         {
-            return _connection.Query<Books>("SELECT * FROM books WHERE Author LIKE '%@search%';",
-                new { search = newSearch });
+            return _connection.Query<Books>("SELECT * FROM books WHERE Author LIKE @search;",
+                new { search = "%" + newSearch + "%" });
         }
 
         //Search BookNames
         public IEnumerable<Books> SearchBook(string newSearch)
         {
-            return _connection.Query<Books>("SELECT * FROM books WHERE BookName LIKE '%@search%';",
-                new { search = newSearch });
+            return _connection.Query<Books>("SELECT * FROM books WHERE BookName LIKE @search;",
+                new { search = "%" + newSearch + "%" });
         }
 
+        //Search Both
+        public IEnumerable<Books> SearchAll(string newSearch)
+        {
+            return _connection.Query<Books>("SELECT * FROM books WHERE BookName LIKE @search OR Author LIKE @search;",
+                new { search = "%" + newSearch + "%" });
+        }
+
+        //Select specific book
+        public Books SearchID(int newSearch)
+        {
+            return _connection.QuerySingle<Books>("SELECT * FROM books WHERE BookID = @search;",
+                new { search = newSearch });
+        }
 
         //arguments use the term old if it is referencing an old item and new if it is creating or editing new information
 
